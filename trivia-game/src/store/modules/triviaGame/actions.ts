@@ -4,7 +4,7 @@ const actions = {
     getData() {
         debugger;
         return new Promise((resolve, reject) => {
-            axios({url: 'http://18.216.240.67/trivia/data', method: 'GET'})
+            axios({url: 'http://13.59.155.65:8080/trivia/data', method: 'GET'})
                 .then(response => {
                     debugger;
                     resolve(response);

@@ -107,7 +107,6 @@
 
         mounted() {
             this.getDataFromServer();
-            debugger;
         }
 
         setTimer(value: any) {
@@ -123,7 +122,6 @@
         }
 
         onClickGuessingList(chosenItem: LetterBox) {
-            debugger;
             let arrayIndex = this.resultList.findIndex(x => x.name === '');
             if (arrayIndex != -1) {
                 this.moveToResultList(chosenItem, arrayIndex)
@@ -144,7 +142,6 @@
         }
 
         giveMeAHint() {
-            debugger;
             this.isPressHint = true;
             this.dataManipulation();
             let hint = this.data[this.indexQuestion].hint;
@@ -220,7 +217,6 @@
         }
 
         dataManipulation() {
-            debugger;
             this.init();
             //   if (this.success || this.indexQuestion === 0 || this.isPressHint) {
             this.question = this.data[this.indexQuestion].question;
@@ -233,11 +229,8 @@
         }
 
         ifUserSuccess() {
-            debugger;
             let isSuccess = this.resultList.every((value, index) => value.name === this.arrayOfCharAnswer[index]);
             if (isSuccess) {
-                debugger;
-                debugger;
                 if (this.time != 0) {
                     this.userMoney = this.userMoney + 30;
                     this.stopTimer();
@@ -249,9 +242,7 @@
         }
 
         stopTimer() {
-            debugger;
             EventBus.$emit("stopTimer", true);
-            debugger;
         }
 
         init() {
@@ -260,7 +251,6 @@
         }
 
         createResultList() {
-            debugger;
             let resultListIds = 0;
             this.arrayOfCharAnswer.forEach(item => {
                 this.resultList.push(
@@ -274,7 +264,6 @@
         }
 
         createGuessingList() {
-            debugger;
             let guessingListIds = 1;
 
             let arrayOfLettersForGuessingList = [...this.arrayOfCharAnswer];

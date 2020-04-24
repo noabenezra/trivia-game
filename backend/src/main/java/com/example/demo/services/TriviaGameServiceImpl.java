@@ -3,8 +3,8 @@ package com.example.demo.services;
 import com.example.demo.models.entities.TriviaGameEntity;
 import com.example.demo.repository.TriviaGameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import com.example.demo.payload.response.QuestionsListResponse;
 
 import java.util.List;
 

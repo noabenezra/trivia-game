@@ -1,18 +1,22 @@
 <template>
-
     <div class="pyro">
         <span class="success">
             הצלחת!
         </span>
-        <spn class="wow">
+        <span class="wow">
             אתה גאון!
-        </spn>
+        </span>
         <div class="before"></div>
         <div class="after"></div>
     </div>
 </template>
-<script>
 
+<script lang="ts">
+    import {Component, Vue} from 'vue-property-decorator';
+
+    @Component({})
+    export default class FinishGame extends Vue {
+    }
 
 </script>
 <style scoped lang="scss">

@@ -34,19 +34,6 @@
 
 <style scoped lang="scss">
 
-    @font-face {
-        font-family: "CustomFont";
-        src: url(../VarelaRound-Regular.ttf) ;
-    }
-
-    * {
-        font-family: "CustomFont";
-    }
-
-    body {
-        background-image: url("../public/images/1.png");
-    }
-
     .app {
         position: relative;
         height: 1200px;
@@ -55,7 +42,7 @@
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: #2c3e50;
-        background-image: url("../public/images/10.png");
+        background-image: url("../public/images/background.png");
         background-repeat: repeat;
         background-size: 100%;
 
@@ -97,10 +84,8 @@
 
         .trivia-game {
             position: absolute;
-            //  width: 50%;
             left: 21%;
             height: 80%;
-
             padding-left: 66px;
             padding-right: 66px;
             width: 1050px;

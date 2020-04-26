@@ -1,17 +1,16 @@
 <template>
-    <b-container fluid class="game">
+    <b-container fluid="true" class="game">
         <b-row class="nav">
             <b-col class="money" cols="2">
                 <span class="user-money">{{userMoney}}</span>
-                <img src="../assets/123.png" class="money-img">
+                <img src="../assets/123.png" class="money-img" alt="money">
             </b-col>
             <b-col cols="5">
             </b-col>
             <b-col cols="4" class="timer">
                 <Timer class="timer-clock" @timer="setTimer"
-                       :key="componentKey"></Timer>
-                <img src="../assets/124.png" class="money-img">
-
+                       :key="componentKey"/>
+                <img src="../assets/124.png" class="money-img" alt="timer">
             </b-col>
         </b-row>
         <b-row class="board">
@@ -26,7 +25,7 @@
                     </p>
                 </div>
                 <div class="missing-words">
-                    <div :class="item.name ==='' ? 'letter' : (item.name=='_'? 'underscore':'block') "
+                    <div :class="item.name ==='' ? 'letter' : (item.name==='_'? 'underscore':'block') "
                          v-for='item in resultList'
                          @click='onClickResultList(item)'>
                         {{ item.name }}
@@ -53,8 +52,8 @@
                 </b-button>
             </b-col>
             <b-col>
-                <b-button :disabled="success || this.userMoney - 30 <= 0 || this.nextQuestionCount >= 3"
-                          :class="success  || this.userMoney - 30 <= 0 || this.nextQuestionCount >= 3 ? 'disabled-button' : ''"
+                <b-button :disabled="success || this.userMoney - 30  < 0"
+                          :class="success  || this.userMoney - 30  < 0  ? 'disabled-button' : ''"
                           class="hint pass"
                           @click="nextQuestion()">עבור שאלה - בעלות 30 מטבעות
                 </b-button>
@@ -62,7 +61,6 @@
         </b-row>
         <b-row v-if="success === true" class="success">
             <b-col>
-                <!--  <img src="../assets/smile.png" class="smile">-->
                 <span class="beautiful">
                       יפה!
                 </span>
@@ -76,9 +74,9 @@
 </template>
 
 <script lang="ts">
-    import {Component, Prop, Vue} from 'vue-property-decorator';
-    import {LetterBox} from '../models/LetterBox';
-    import {Result} from '../models/Result';
+    import {Component, Vue} from 'vue-property-decorator';
+    import {LetterBox} from '@/models/LetterBox';
+    import {Result} from '@/models/Result';
     import Timer from '@/components/Timer.vue';
     import EventBus from '../main';
 
@@ -95,15 +93,13 @@
         private resultList: LetterBox[] = [];
         private arrayOfCharAnswer: string[] = [];
         private isNext: boolean = false;
-        private isPrev: boolean = false;
         private isPressHint: boolean = false;
         private userMoney: number = 100;
         private time: any = 0;
-        private isMoveToNextQuestion: boolean = false;
         private componentKey: any = 0;
-        private nextQuestionCount: any = 0;
+        $router: any;
+        $store: any;
 
-        // private myPlaceInTheGame: any = 0;
 
         mounted() {
             this.getDataFromServer();
@@ -114,17 +110,18 @@
         }
 
         nextQuestion() {
-            if (this.userMoney - 30 > 0 && this.nextQuestionCount < 3 && !this.success) {
+            if (this.userMoney - 30 >= 0 && !this.success) {
                 this.userMoney = this.userMoney - 30;
-                this.nextQuestionCount++;
-                this.goToNextStage();
+                this.timeManipulation();
+                this.success = true;
+                this.isNext = true;
             }
         }
 
         onClickGuessingList(chosenItem: LetterBox) {
             let arrayIndex = this.resultList.findIndex(x => x.name === '');
             if (arrayIndex != -1) {
-                this.moveToResultList(chosenItem, arrayIndex)
+                this.moveToResultList(chosenItem, arrayIndex);
                 this.removeFromGuessingList(chosenItem);
             }
             this.ifUserSuccess();
@@ -153,10 +150,11 @@
                 if (foundItem) {
                     this.resultList[startIndex].id = foundItem.id;
                     this.resultList[startIndex].name = foundItem.name;
+                    this.resultList[startIndex].list = 2;
                     startIndex++;
                     this.removeFromGuessingList(foundItem);
                 }
-            })
+            });
             this.isPressHint = false;
         }
 
@@ -186,34 +184,16 @@
         }
 
         goToNextStage() {
-            console.log(this.indexQuestion);
-
             this.forceRerender();
             if (this.indexQuestion === this.data.length - 1) {
                 this.$router.push('/finish');
             }
             this.indexQuestion++;
-            console.log(this.indexQuestion);
-
-
             this.dataManipulation();
-
         }
 
         forceRerender() {
             this.componentKey += 1;
-        }
-
-        goToPrevStage() {
-            if (this.indexQuestion != 0) {
-                this.indexQuestion--;
-                this.init();
-                this.question = this.data[this.indexQuestion].question;
-                this.arrayOfCharAnswer = Array.from(this.data[this.indexQuestion].answer);
-                this.createResultList();
-                this.createGuessingList();
-            }
-
         }
 
         dataManipulation() {
@@ -223,21 +203,22 @@
             this.arrayOfCharAnswer = Array.from(this.data[this.indexQuestion].answer);
             this.createResultList();
             this.createGuessingList();
-            this.success = false;
-            this.isNext = false;
             // }
         }
 
         ifUserSuccess() {
             let isSuccess = this.resultList.every((value, index) => value.name === this.arrayOfCharAnswer[index]);
             if (isSuccess) {
-                if (this.time != 0) {
-                    this.userMoney = this.userMoney + 30;
-                    this.stopTimer();
-                }
+                this.timeManipulation();
                 this.success = true;
                 this.isNext = true;
+            }
+        }
 
+        timeManipulation() {
+            if (this.time != 0) {
+                this.userMoney = this.userMoney + 10;
+                this.stopTimer();
             }
         }
 
@@ -248,6 +229,8 @@
         init() {
             this.resultList = [];
             this.guessingList = [];
+            this.success = false;
+            this.isNext = false;
         }
 
         createResultList() {
@@ -267,7 +250,7 @@
             let guessingListIds = 1;
 
             let arrayOfLettersForGuessingList = [...this.arrayOfCharAnswer];
-            //sort array
+            //mix array - random
             arrayOfLettersForGuessingList = this.shuffle(arrayOfLettersForGuessingList);
 
             //remove elements with '_'
@@ -277,7 +260,7 @@
                     arrayOfLettersForGuessingList.splice(indexForSpace, 1);
                 }
             }
-            //add mix letters
+            //add mix letters for the guessing list
             arrayOfLettersForGuessingList = [...this.addLetters(this.numberOfLettersInGuessingList - arrayOfLettersForGuessingList.length), ...arrayOfLettersForGuessingList];
 
             arrayOfLettersForGuessingList.forEach(item => {
@@ -289,7 +272,6 @@
                     });
             });
         }
-
 
         shuffle(array: string[]) {
             for (let i = array.length - 1; i > 0; i--) {
@@ -310,8 +292,8 @@
         }
 
         getDataFromServer() {
-            this.$store.dispatch('triviaGameStore/getData').then((res) => {
-                    if (res != null) {
+            this.$store.dispatch('triviaGameStore/getData').then((res: any) => {
+                    if (res && res.data) {
                         this.data = res.data;
                     }
                     this.sortArray();
@@ -421,7 +403,7 @@
         background-repeat: no-repeat;
         background-size: cover;
         background-color: #ffffff69;
-        margin-left: 20%;
+        // margin-left: 20%;
         height: 97%;
         border: #ffffff69;
 
@@ -477,7 +459,6 @@
             height: 34px;
             padding: 0 20px;
             line-height: 34px;
-            height: 34px;
             margin-left: 85px;
         }
 
@@ -517,72 +498,6 @@
             .message {
                 font-size: 25px;
             }
-
-            /*
-              .smile {
-                  width: 130px;
-                  position: absolute;
-                  left: 68%;
-                  top: 70%;
-              }
-
-              .message {
-                  font-size: 20px;
-                  margin-right: 5px;
-                  font-weight: bold;
-
-              }
-
-              .circular-sb {
-                  width: 265px;
-                  border: 5px solid #f9bc0a;
-                  padding: 47px 0px;
-                  margin: 30px auto;
-                  border-radius: 50%;
-                  text-align: center;
-                  font-size: 24px;
-                  font-weight: 900;
-                  font-family: arial;
-                  position: relative;
-                  color: black;
-                  background: white;
-
-              }
-
-              .circle1 {
-                  border: 5px solid #f9bc0a;
-                  position: absolute;
-                  width: 25px;
-                  padding: 20px;
-                  border-radius: 50%;
-                  right: -25px;
-                  bottom: 8px;
-              }
-
-              .circle1:before {
-                  content: "";
-                  position: absolute;
-                  width: 25px;
-                  padding: 20px;
-                  border-radius: 50%;
-                  right: 0px;
-                  bottom: 0px;
-                  background: #fff;
-              }
-
-              .circle2 {
-                  border: 5px solid #f9bc0a;
-                  position: absolute;
-                  width: 5px;
-                  padding: 10px 15px;
-                  border-radius: 50%;
-                  right: -60px;
-                  bottom: -7px;
-                  background: #fff;
-
-              }*/
-
-
         }
     }
 

@@ -120,4 +120,50 @@
         }
 
     }
+
+    @media screen and (max-width: 770px) {
+        .game {
+            background-image: none;
+            margin-left: 0;
+            height: 454px;
+
+            padding-left: 0;
+            margin-right: 0;
+            border: none;
+            background-color: transparent;
+            width: unset;
+
+            .instructions {
+                font-size: 10px;
+                font-weight: bold;
+                padding: 10px;
+                margin-top: 0;
+
+                p {
+                    font-size: 15px;
+                }
+
+                .title {
+                    font-size: 17px;
+                }
+
+                .instructions {
+                    margin-top: 5px;
+
+                    .btn {
+                        width: 150px;
+                        height: 50px;
+                        cursor: pointer !important;
+                        border: 1px solid black;
+                        outline: none;
+                        background: #fffffff5;
+                    }
+
+                }
+
+
+            }
+
+        }
+    }
 </style>

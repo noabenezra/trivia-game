@@ -14,11 +14,11 @@
             </b-col>
         </b-row>
         <b-row class="board">
-            <b-col class="arrow-element" cols="2">
+            <b-col class="arrow-element-prev" cols="2">
                 <!-- <span :disabled="!isPrev" :class="!isPrev ? 'disabled' : 'arrow'"
                        @click="isPrev ? goToPrevStage():''">  < </span>-->
             </b-col>
-            <b-col cols="8">
+            <b-col cols="8" class="center">
                 <div class="ask-question">
                     <p class="question">
                         {{question}}
@@ -55,10 +55,35 @@
                 <b-button :disabled="success || this.userMoney - 30  < 0"
                           :class="success  || this.userMoney - 30  < 0  ? 'disabled-button' : ''"
                           class="hint pass"
-                          @click="nextQuestion()">עבור שאלה - בעלות 30 מטבעות
+                          @click="nextQuestion()">
+                    <span>
+                                            עבור שאלה - בעלות 30 מטבעות
+
+                    </span>
                 </b-button>
             </b-col>
         </b-row>
+
+        <!-- <b-row class="for-mobile">
+             <b-row class="row">
+                 <b-col>
+                     <b-button :disabled="success"
+                               :class="success ? 'disabled-button' : ''"
+                               class="hint" @click="giveMeAHint()">מתקשה? קח רמז
+                     </b-button>
+                 </b-col>
+             </b-row>
+             <b-row class="row">
+                 <b-col>
+                     <b-button :disabled="success || this.userMoney - 30  < 0"
+                               :class="success  || this.userMoney - 30  < 0  ? 'disabled-button' : ''"
+                               class="hint pass"
+                               @click="nextQuestion()">עבור שאלה - בעלות 30 מטבעות
+                     </b-button>
+                 </b-col>
+             </b-row>
+         </b-row>-->
+
         <b-row v-if="success === true" class="success">
             <b-col>
                 <span class="beautiful">
@@ -479,6 +504,11 @@
             transform: translateY(4px);
         }
 
+
+        /*  .for-mobile {
+              display: none;
+          }
+  */
         .success {
             margin-top: 5%;
             font-size: 25px;
@@ -500,6 +530,204 @@
             }
         }
     }
+
+    @media screen and (max-width: 770px) {
+
+        .game {
+            .board {
+                padding: 0 60px 0 0;
+
+                .center {
+                    flex: 0 0 81.666667%;
+                    max-width: 81.666667%;
+
+                    .missing-words {
+                        display: flex;
+                        margin-bottom: 30px;
+                        justify-content: space-evenly;
+
+                        .letter {
+                            border: solid 1px black;
+                            width: 20px;
+                            height: 20px;
+                            cursor: pointer !important;
+                        }
+
+                        .block {
+                            border: solid 1px;
+                            background-color: white;
+                            width: 20px;
+                            height: 20px;
+                            font-size: 12px;
+                            font-weight: bold;
+                            cursor: pointer !important;
+
+                        }
+
+                        .underscore {
+
+                        }
+                    }
+
+                    .container {
+                        display: flex;
+                        margin-bottom: 20px;
+                        flex-wrap: wrap;
+
+                        .letter {
+                            border: solid 1px white;
+                            width: 20px;
+                            height: 20px;
+                        }
+
+                        .block {
+                            background-color: white;
+                            border: solid 1px;
+                            width: 20px;
+                            height: 20px;
+                            font-size: 12px;
+                            font-weight: bold;
+                            margin: 10px;
+                            cursor: pointer !important;
+                        }
+                    }
+
+                    .ask-question {
+                        font-weight: bold;
+                        margin-bottom: 20px;
+
+
+                        .question {
+                            margin-top: 10px;
+                            font-size: 16px;
+                        }
+                    }
+                }
+
+                .input-group {
+                }
+
+                .arrow-element-prev {
+                    display: none;
+                }
+
+                .arrow-element {
+                    cursor: pointer;
+                    font-size: 12px;
+                    font-weight: 900;
+
+                    .arrow {
+                        color: black;
+                    }
+
+                    .disabled {
+                        color: #dddddd;
+                    }
+                }
+            }
+
+            .nav {
+                padding-top: 30px;
+
+                .money {
+                    display: flex;
+                    margin-right: 25px;
+
+                    .user-money {
+                        align-self: center;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+
+                    .money-img {
+                        width: 40px;
+                    }
+                }
+
+                .timer {
+                    align-self: center;
+                    font-size: 12px;
+                    font-weight: bold;
+                    display: flex;
+
+                    .timer-clock {
+                        align-self: center;
+                        margin-right: 60%;
+                    }
+
+                    .money-img {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+            }
+
+
+            .row {
+                margin-bottom: 10px;
+            }
+
+
+            .hint {
+                font-size: 12px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: black;
+                background-color: white;
+                border-radius: 36px;
+                border: solid 1px #2c3e50;
+                line-height: 34px;
+                content: 'עבור שאלה' !important;
+                margin-left: 5%;
+
+                button span {
+                    display: none;
+
+                }
+            }
+
+            .pass {
+            }
+
+            .disabled-button {
+                background-color: #dddddd;
+            }
+
+            .hint:hover:not([disabled]) {
+                background-color: #e3dccc;
+            }
+
+            .hint:active:not([disabled]) {
+                background-color: #e3dccc;
+                transform: translateY(4px);
+            }
+
+
+            .success {
+                font-size: 12px;
+                font-weight: bold;
+                border: solid 2px;
+                background: white;
+                border-radius: 10px;
+                width: 224px;
+                margin-right: 20%;
+                margin-top: 10%;
+
+                .beautiful {
+                    font-size: 12px;
+                    color: #e21e00;
+                }
+
+                .message {
+                    font-size: 12px;
+                }
+            }
+        }
+
+
+    }
+
 
 </style>
 

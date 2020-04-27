@@ -79,4 +79,15 @@
             }
         }
     }
+
+    @media only screen and (max-width: 770px) {
+        .container {
+            align-items: flex-start;
+
+            .center {
+                left: 10%;
+            }
+        }
+
+    }
 </style>

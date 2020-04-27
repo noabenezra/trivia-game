@@ -92,7 +92,7 @@
                 svg {
                     position: absolute;
                     left: 270px;
-                    top: 590px;
+                    top: 592px;
                     fill: none;
                     stroke: black;
                     stroke-dasharray: 150 480;

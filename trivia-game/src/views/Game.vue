@@ -125,7 +125,9 @@
         nextQuestion() {
             if (this.userMoney - 30 >= 0 && !this.success) {
                 this.userMoney = this.userMoney - 30;
-                this.timeManipulation();
+                if (this.time != 0) {
+                    this.stopTimer();
+                }
                 this.success = true;
                 this.isNext = true;
             }

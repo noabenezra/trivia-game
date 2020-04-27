@@ -5,7 +5,7 @@
                 <span class="user-money">{{userMoney}}</span>
                 <img src="../assets/123.png" class="money-img" alt="money">
             </b-col>
-            <b-col cols="5">
+            <b-col cols="5" class="block">
             </b-col>
             <b-col cols="4" class="timer">
                 <Timer class="timer-clock" @timer="setTimer"
@@ -48,7 +48,14 @@
             <b-col>
                 <b-button :disabled="success"
                           :class="success ? 'disabled-button' : ''"
-                          class="hint" @click="giveMeAHint()">מתקשה? קח רמז
+                          class="hint" @click="giveMeAHint()">
+                       <span class="for-computer">
+                                           מתקשה? קח רמז
+                    </span>
+                    <span class="for-mobile">
+                                               קח רמז
+                    </span>
+
                 </b-button>
             </b-col>
             <b-col>
@@ -56,34 +63,15 @@
                           :class="success  || this.userMoney - 30  < 0  ? 'disabled-button' : ''"
                           class="hint pass"
                           @click="nextQuestion()">
-                    <span>
+                    <span class="for-computer">
                                             עבור שאלה - בעלות 30 מטבעות
-
+                    </span>
+                    <span class="for-mobile">
+                                            עבור שאלה
                     </span>
                 </b-button>
             </b-col>
         </b-row>
-
-        <!-- <b-row class="for-mobile">
-             <b-row class="row">
-                 <b-col>
-                     <b-button :disabled="success"
-                               :class="success ? 'disabled-button' : ''"
-                               class="hint" @click="giveMeAHint()">מתקשה? קח רמז
-                     </b-button>
-                 </b-col>
-             </b-row>
-             <b-row class="row">
-                 <b-col>
-                     <b-button :disabled="success || this.userMoney - 30  < 0"
-                               :class="success  || this.userMoney - 30  < 0  ? 'disabled-button' : ''"
-                               class="hint pass"
-                               @click="nextQuestion()">עבור שאלה - בעלות 30 מטבעות
-                     </b-button>
-                 </b-col>
-             </b-row>
-         </b-row>-->
-
         <b-row v-if="success === true" class="success">
             <b-col>
                 <span class="beautiful">
@@ -491,6 +479,10 @@
             margin-left: 30px;
         }
 
+        .for-mobile {
+            display: none;
+        }
+
         .disabled-button {
             background-color: #dddddd;
         }
@@ -505,10 +497,10 @@
         }
 
 
-        /*  .for-mobile {
-              display: none;
-          }
-  */
+        .for-mobile {
+            display: none;
+        }
+
         .success {
             margin-top: 5%;
             font-size: 25px;
@@ -531,15 +523,441 @@
         }
     }
 
-    @media screen and (max-width: 770px) {
+    @media screen and (min-width: 771px) and (max-width: 1000px) {
+        .game {
+            width: 74%;
+            height: 71%;
+            margin-right: 47%;
+            margin-top: 5%;
 
+            .board {
+                padding: 0 60px 0 0;
+
+                .center {
+                    flex: 0 0 82.666667%;
+                    max-width: 82.666667%;
+                    padding-right: 0;
+                    padding-left: 0;
+
+                    .missing-words {
+                        display: flex;
+                        margin-bottom: 30px;
+                        justify-content: space-evenly;
+
+                        .letter {
+                            border: solid 1px black;
+                            width: 20px;
+                            height: 20px;
+                            cursor: pointer !important;
+                        }
+
+                        .block {
+                            border: solid 1px;
+                            background-color: white;
+                            width: 20px;
+                            height: 20px;
+                            font-size: 12px;
+                            font-weight: bold;
+                            cursor: pointer !important;
+
+                        }
+
+                        .underscore {
+
+                        }
+                    }
+
+                    .container {
+                        display: flex;
+                        margin-bottom: 20px;
+                        flex-wrap: wrap;
+
+                        .letter {
+                            border: solid 1px white;
+                            width: 20px;
+                            height: 20px;
+                        }
+
+                        .block {
+                            background-color: white;
+                            border: solid 1px;
+                            width: 20px;
+                            height: 20px;
+                            font-size: 12px;
+                            font-weight: bold;
+                            margin: 10px;
+                            cursor: pointer !important;
+                        }
+                    }
+
+                    .ask-question {
+                        font-weight: bold;
+                        margin-bottom: 20px;
+
+                        .question {
+                            margin-top: 10px;
+                            font-size: 25px;
+                        }
+                    }
+                }
+
+                .input-group {
+                }
+
+                .arrow-element-prev {
+                    display: none;
+                }
+
+                .arrow-element {
+
+                    font-size: 20px;
+                    margin-top: 20%;
+                    cursor: pointer;
+                    font-weight: 900;
+
+                    .arrow {
+                        color: black;
+                    }
+
+                    .disabled {
+                        color: #dddddd;
+                    }
+                }
+            }
+
+            .nav {
+                justify-content: space-around;
+                padding-top: 50px;
+
+                .money {
+                    flex: 0;
+                    display: flex;
+                    margin-right: 0;
+
+                    .user-money {
+                        margin-left: 10%;
+                        align-self: center;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+
+                    .money-img {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+
+                .block {
+                    flex: 0;
+                }
+
+                .timer {
+                    flex: 0;
+                    margin-right: 0;
+                    align-self: center;
+                    font-size: 12px;
+                    font-weight: bold;
+                    display: flex;
+
+                    .timer-clock {
+                        margin-left: 10%;
+                        align-self: center;
+                        margin-right: 0;
+
+                    }
+
+                    .money-img {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+            }
+
+            .row {
+                margin-bottom: 10px;
+            }
+
+            .hint {
+                font-size: 12px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: black;
+                background-color: white;
+                border-radius: 36px;
+                border: solid 1px #2c3e50;
+                line-height: 34px;
+                content: 'עבור שאלה' !important;
+                margin-left: 5%;
+
+                button span {
+                    display: none;
+
+                }
+            }
+
+            .pass {
+            }
+
+            .disabled-button {
+                background-color: #dddddd;
+            }
+
+            .hint:hover:not([disabled]) {
+                background-color: #e3dccc;
+            }
+
+            .hint:active:not([disabled]) {
+                background-color: #e3dccc;
+                transform: translateY(4px);
+            }
+
+            .success {
+                font-size: 12px;
+                font-weight: bold;
+                border: solid 2px;
+                background: white;
+                border-radius: 10px;
+                width: 224px;
+                margin-top: 10%;
+                margin-left: auto;
+                margin-right: auto;
+
+
+                .beautiful {
+                    font-size: 12px;
+                    color: #e21e00;
+                }
+
+                .message {
+                    font-size: 12px;
+                }
+            }
+        }
+
+
+    }
+
+    @media screen and (min-width: 501px) and (max-width: 770px) {
+        .game {
+            background-image: unset;
+
+            .board {
+                padding: 0 60px 0 0;
+
+                .center {
+                    flex: 0 0 82.666667%;
+                    max-width: 82.666667%;
+                    padding-right: 0;
+                    padding-left: 0;
+
+                    .missing-words {
+                        display: flex;
+                        margin-bottom: 30px;
+                        justify-content: space-evenly;
+
+                        .letter {
+                            border: solid 1px black;
+                            width: 20px;
+                            height: 20px;
+                            cursor: pointer !important;
+                        }
+
+                        .block {
+                            border: solid 1px;
+                            background-color: white;
+                            width: 20px;
+                            height: 20px;
+                            font-size: 12px;
+                            font-weight: bold;
+                            cursor: pointer !important;
+
+                        }
+
+                        .underscore {
+
+                        }
+                    }
+
+                    .container {
+                        display: flex;
+                        margin-bottom: 20px;
+                        flex-wrap: wrap;
+
+                        .letter {
+                            border: solid 1px white;
+                            width: 20px;
+                            height: 20px;
+                        }
+
+                        .block {
+                            background-color: white;
+                            border: solid 1px;
+                            width: 20px;
+                            height: 20px;
+                            font-size: 12px;
+                            font-weight: bold;
+                            margin: 10px;
+                            cursor: pointer !important;
+                        }
+                    }
+
+                    .ask-question {
+                        font-weight: bold;
+                        margin-bottom: 20px;
+
+                        .question {
+                            margin-top: 10px;
+                            font-size: 25px;
+                        }
+                    }
+                }
+
+                .input-group {
+                }
+
+                .arrow-element-prev {
+                    display: none;
+                }
+
+                .arrow-element {
+                    margin-top: 25%;
+                    cursor: pointer;
+                    font-size: 12px;
+                    font-weight: 900;
+
+                    .arrow {
+                        color: black;
+                    }
+
+                    .disabled {
+                        color: #dddddd;
+                    }
+                }
+            }
+
+            .nav {
+                justify-content: space-between;
+                padding-top: 30px;
+
+                .money {
+                    flex: 0;
+                    display: flex;
+                    margin-right: 5%;
+
+                    .user-money {
+                        margin-left: 10%;
+                        align-self: center;
+                        font-size: 12px;
+                        font-weight: bold;
+                    }
+
+                    .money-img {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+
+                .block {
+                    flex: 0;
+                }
+
+                .timer {
+                    flex: 0;
+                    margin-right: 0;
+                    align-self: center;
+                    font-size: 12px;
+                    font-weight: bold;
+                    display: flex;
+
+                    .timer-clock {
+                        margin-left: 10%;
+                        align-self: center;
+                        margin-right: 0;
+
+                    }
+
+                    .money-img {
+                        width: 30px;
+                        height: 30px;
+                    }
+                }
+            }
+
+            .row {
+                margin-bottom: 10px;
+            }
+
+            .hint {
+                font-size: 12px;
+                text-align: center;
+                cursor: pointer;
+                outline: none;
+                color: black;
+                background-color: white;
+                border-radius: 36px;
+                border: solid 1px #2c3e50;
+                line-height: 34px;
+                content: 'עבור שאלה' !important;
+                margin-left: 5%;
+
+                button span {
+                    display: none;
+
+                }
+            }
+
+            .pass {
+            }
+
+            .disabled-button {
+                background-color: #dddddd;
+            }
+
+            .hint:hover:not([disabled]) {
+                background-color: #e3dccc;
+            }
+
+            .hint:active:not([disabled]) {
+                background-color: #e3dccc;
+                transform: translateY(4px);
+            }
+
+            .success {
+                font-size: 12px;
+                font-weight: bold;
+                border: solid 2px;
+                background: white;
+                border-radius: 10px;
+                width: 224px;
+                margin-top: 10%;
+                margin-left: auto;
+                margin-right: auto;
+
+
+                .beautiful {
+                    font-size: 12px;
+                    color: #e21e00;
+                }
+
+                .message {
+                    font-size: 12px;
+                }
+            }
+        }
+
+    }
+
+    @media screen and (max-width: 500px) {
         .game {
             .board {
                 padding: 0 60px 0 0;
 
                 .center {
-                    flex: 0 0 81.666667%;
-                    max-width: 81.666667%;
+                    flex: 0 0 82.666667%;
+                    max-width: 82.666667%;
+                    padding-right: 0;
+                    padding-left: 0;
 
                     .missing-words {
                         display: flex;
@@ -612,6 +1030,7 @@
                 }
 
                 .arrow-element {
+                    margin-top: 36%;
                     cursor: pointer;
                     font-size: 12px;
                     font-weight: 900;
@@ -627,32 +1046,44 @@
             }
 
             .nav {
+                justify-content: space-between;
                 padding-top: 30px;
 
                 .money {
+                    flex: 0;
                     display: flex;
-                    margin-right: 25px;
+                    margin-right: 0;
 
                     .user-money {
+                        margin-left: 10%;
                         align-self: center;
                         font-size: 12px;
                         font-weight: bold;
                     }
 
                     .money-img {
-                        width: 40px;
+                        width: 30px;
+                        height: 30px;
                     }
                 }
 
+                .block {
+                    flex: 0;
+                }
+
                 .timer {
+                    flex: 0;
+                    margin-right: 0;
                     align-self: center;
                     font-size: 12px;
                     font-weight: bold;
                     display: flex;
 
                     .timer-clock {
+                        margin-left: 10%;
                         align-self: center;
-                        margin-right: 60%;
+                        margin-right: 0;
+
                     }
 
                     .money-img {
@@ -662,11 +1093,9 @@
                 }
             }
 
-
             .row {
                 margin-bottom: 10px;
             }
-
 
             .hint {
                 font-size: 12px;
@@ -690,6 +1119,14 @@
             .pass {
             }
 
+            .for-mobile {
+                display: block;
+            }
+
+            .for-computer {
+                display: none;
+            }
+
             .disabled-button {
                 background-color: #dddddd;
             }
@@ -711,8 +1148,10 @@
                 background: white;
                 border-radius: 10px;
                 width: 224px;
-                margin-right: 20%;
                 margin-top: 10%;
+                margin-left: auto;
+                margin-right: auto;
+
 
                 .beautiful {
                     font-size: 12px;

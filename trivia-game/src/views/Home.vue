@@ -80,6 +80,30 @@
         }
     }
 
+    @media screen and (min-width: 1300px) and (max-width: 1800px) {
+        .container {
+            left: 40%;
+        }
+    }
+
+    @media screen and (min-width: 1150px) and (max-width: 1299px) {
+        .container {
+            left: 30%;
+        }
+    }
+
+    @media screen and (min-width: 1000px) and (max-width: 1149px) {
+        .container {
+            left: 25%;
+        }
+    }
+
+    @media screen and (min-width: 771px) and (max-width: 999px) {
+        .container {
+            left: 17%;
+        }
+    }
+
     @media only screen and (max-width: 770px) {
         .container {
             align-items: flex-start;

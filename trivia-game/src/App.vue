@@ -108,8 +108,6 @@
 
     @media screen and (max-width: 770px) {
         .app {
-            // width: 188%;
-            //  height: 812px;
             min-height: 812px;
 
             .nav-for-laptop {
@@ -125,11 +123,9 @@
             width: auto !important;
             left: 0 !important;
             height: 0 !important;
-
             padding-right: 20px !important;
             padding-left: 20px !important;
-            // width: 0 !important;
-            //  height: 0 !important;
+
         }
     }
 </style>

@@ -6,6 +6,13 @@
         <span class="wow">
             אתה גאון!
         </span>
+        <br>
+        <span class="money">
+            צברת
+            {{$route.params.userMoney ?$route.params.userMoney: 100 }}
+            מטבעות
+        </span>
+
         <div class="before"></div>
         <div class="after"></div>
     </div>
@@ -147,6 +154,12 @@
         font-size: 50px;
         color: red;
         font-weight: 1000;
+    }
+
+    .money {
+        font-size: 25px;
+        font-weight: 1000;
+
     }
 
 </style>

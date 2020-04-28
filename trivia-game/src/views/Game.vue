@@ -195,13 +195,12 @@
                 this.moveToGuessingList(item);
                 this.removeFromResultList(item);
             }
-
         }
 
         goToNextStage() {
             this.forceRerender();
             if (this.indexQuestion === this.data.length - 1) {
-                this.$router.push('/finish');
+                this.$router.push({name: 'FinishGame', params: {userMoney: this.userMoney}});
             }
             this.indexQuestion++;
             this.dataManipulation();
@@ -1032,9 +1031,9 @@
                 }
 
                 .arrow-element {
-                    margin-top: 36%;
+                    margin-top: 37%;
+                    font-size: 25px;
                     cursor: pointer;
-                    font-size: 12px;
                     font-weight: 900;
 
                     .arrow {

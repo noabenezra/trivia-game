@@ -26,6 +26,11 @@ const routes: Array<RouteConfig> = [
         name: 'Instructions',
         component: () => import( '../views/Instructions.vue')
     },
+    {
+        path: '/winners',
+        name: 'Winners',
+        component: () => import( '../views/Winners.vue')
+    },
 
     {
         path: '/finish',

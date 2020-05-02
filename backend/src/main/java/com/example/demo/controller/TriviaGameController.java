@@ -1,14 +1,16 @@
 package com.example.demo.controller;
 
 import com.example.demo.models.entities.TriviaGameEntity;
+import com.example.demo.models.entities.UsersEntity;
+import com.example.demo.payload.request.UserRequest;
+import com.example.demo.payload.response.UpdateUserResponse;
 import com.example.demo.services.TriviaGameService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -26,6 +28,24 @@ public class TriviaGameController {
     @GetMapping("/data")
     public List<TriviaGameEntity> getData() {
         List<TriviaGameEntity> result = triviaGameService.getQuestionsList();
+        return result;
+    }
+
+    @PostMapping("/add")
+    public Integer addUser(@Valid @RequestBody UserRequest userRequest) {
+        Integer result = triviaGameService.registerUser(userRequest);
+        return result;
+    }
+
+    @PostMapping("/update")
+    public ResponseEntity<UpdateUserResponse> updateUser(@Valid @RequestBody UserRequest userRequest) {
+        UpdateUserResponse response = triviaGameService.updateUser(userRequest);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/getAllUsers")
+    public List<UsersEntity> getUsers() {
+        List<UsersEntity> result = triviaGameService.getUsers();
         return result;
     }
 

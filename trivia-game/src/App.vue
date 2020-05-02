@@ -1,7 +1,5 @@
 <template>
     <div id="app" class="app">
-
-
         <div class="nav-for-laptop">
             <nav class="navbar navbar-expand-md tm-nav-bar" id="tmNav">
                 <div class="container">
@@ -23,9 +21,12 @@
                                 </router-link>
                             </li>
                             <li class="nav-item">
+                                <router-link class="nav-link tm-nav-link current" to="/winners">המובילים
+                                </router-link>
+                            </li>
+                            <li class="nav-item">
                                 <router-link class="nav-link tm-nav-link" to="/about">מי אנחנו</router-link>
                             </li>
-
                         </ul>
                     </div>
                 </div>
@@ -41,6 +42,17 @@
 </template>
 
 <style scoped lang="scss">
+
+
+    @font-face {
+        font-family: "CustomFont";
+        src: url(../src/assets/font.ttf) ;
+    }
+
+    * {
+        font-family: "CustomFont";
+    }
+
 
     .app {
         position: relative;
@@ -63,8 +75,8 @@
                 margin-bottom: 2%;
 
                 .nav-bar-brand {
-                    color: black;
-                    font-size: 1.4rem;
+                    color: #e30500;
+                    font-size: 2.8rem;
                     font-weight: bold;
                 }
 
@@ -98,7 +110,7 @@
 
         .trivia-game {
             position: absolute;
-            left: 21%;
+            left: 20%;
             height: 80%;
             padding-left: 66px;
             padding-right: 66px;
@@ -106,7 +118,18 @@
         }
     }
 
-    @media screen and (max-width: 770px) {
+    /*
+
+        @media screen and (min-width: 771px) and(max-width: 1000px) {
+            .trivia-game {
+                left: auto !important;
+                width: auto !important;
+            }
+        }
+    */
+
+
+    @media screen and (max-width: 1000px) {
         .app {
             min-height: 812px;
 

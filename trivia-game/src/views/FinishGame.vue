@@ -12,7 +12,14 @@
             {{$route.params.userMoney ?$route.params.userMoney: 100 }}
             מטבעות
         </span>
+        <div class="go-winners">
+              <span>
+                סקרן לדעת מה יכולותיך ביחס לאחרים?
+                     <router-link class="nav-link tm-nav-link current color" to="/winners">  לחץ כאן
+                                </router-link>
 
+              </span>
+        </div>
         <div class="before"></div>
         <div class="after"></div>
     </div>
@@ -23,6 +30,7 @@
 
     @Component({})
     export default class FinishGame extends Vue {
+
     }
 
 </script>
@@ -160,6 +168,14 @@
         font-size: 25px;
         font-weight: 1000;
 
+    }
+
+    .go-winners {
+        .color {
+            color: #2c3e50;
+        }
+
+        font-size: 25px;
     }
 
 </style>

@@ -9,7 +9,7 @@
                 </b-row>
                 <b-row>
                     <b-col cols="12">
-                        <div class="instructions">
+                        <div class="instructions-text">
                             <p>
                                 בכל חידה תופיע שאלה שאת התשובה שלה ניתן לגלות על ידי משחק מילים, כאשר
                                 ברוב החידות ניתן יהיה לשמוע את אותו הדבר בדיוק עבור שתי משמעויות שונות.
@@ -24,7 +24,8 @@
                                 את המשחק מתחילים עם 100 מטבעות ועל כל שאלה נכונה שעונים עליה תוך פחות
                                 מ-2 דקות יתקבל בונוס של 10 מטבעות.
                                 <br>
-                                במידה ורוצים לקבל עזרה - ניתן ללחוץ על כפתור "מתקשה? קח רמז".
+                                במידה ורוצים לקבל עזרה - ניתן ללחוץ על כפתור "מתקשה? קח רמז"
+                                - לחיצה על כפתור זה תוריד 2 מטבעות.
                                 <br>
                                 במידה ואתם לא מצליחים לפתור את השאלה
                                 ניתן ללחוץ על כפתור עבור שאלה - לחיצה על כפתור זה תוריד 30 מטבעות.
@@ -32,10 +33,10 @@
                                 בהצלחה!
                             </p>
                             <b-button class="btn" @click="startGame" v-if="$route.params.fromHomePage">
-                                <svg width="180px" height="60px" viewBox="0 0 180 60">
-                                    <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line"/>
-                                    <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line"/>
-                                </svg>
+                                <!--    <svg width="180px" height="60px" viewBox="0 0 180 60">
+                                        <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line"/>
+                                        <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line"/>
+                                    </svg>-->
                                 <span>התחל לשחק</span>
                             </b-button>
                         </div>
@@ -77,7 +78,7 @@
                 font-size: 50px;
             }
 
-            .instructions {
+            .instructions-text {
                 margin-top: 20px;
                 padding: 5px;
 
@@ -94,7 +95,7 @@
                 svg {
                     position: absolute;
                     left: 270px;
-                    top: 624px;
+                    top: 658px;
                     fill: none;
                     stroke: black;
                     stroke-dasharray: 150 480;
@@ -119,6 +120,22 @@
             }
         }
     }
+
+    @media screen and (min-width: 771px) and (max-width: 1270px) {
+        .game {
+            width: 74%;
+            height: 71%;
+            margin-right: 47%;
+            margin-top: 5%;
+
+            .instructions {
+                font-size: 15px !important;
+                padding: 72px !important;
+            }
+        }
+
+    }
+
 
     @media screen and (max-width: 770px) {
         .game {
@@ -146,7 +163,7 @@
                     font-size: 17px;
                 }
 
-                .instructions {
+                .instructions-text {
                     margin-top: 5px;
 
                     .btn {

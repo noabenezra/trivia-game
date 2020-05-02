@@ -46,8 +46,8 @@
         </b-row>
         <b-row>
             <b-col>
-                <b-button :disabled="success"
-                          :class="success ? 'disabled-button' : ''"
+                <b-button :disabled="success ||  isPressHint"
+                          :class="success ||  isPressHint ? 'disabled-button' : ''"
                           class="hint" @click="giveMeAHint()">
                        <span class="for-computer">
                                            מתקשה? קח רמז
@@ -92,6 +92,7 @@
     import {Result} from '@/models/Result';
     import Timer from '@/components/Timer.vue';
     import EventBus from '../main';
+    import {UserEntity} from "@/models/UserEntity";
 
     @Component({
         components: {Timer}
@@ -110,6 +111,7 @@
         private userMoney: number = 100;
         private time: any = 0;
         private componentKey: any = 0;
+        private numberOfAnswerQuestions: number = 0;
         $router: any;
         $store: any;
 
@@ -154,23 +156,25 @@
         }
 
         giveMeAHint() {
-            this.isPressHint = true;
-            this.dataManipulation();
-            let hint = this.data[this.indexQuestion].hint;
-            let answer = this.data[this.indexQuestion].answer;
-            let startIndex = answer.indexOf(hint);
-            let arrayHint = Array.from(this.data[this.indexQuestion].hint);
-            arrayHint.forEach(item => {
-                let foundItem = this.guessingList.find(x => x.name === item);
-                if (foundItem) {
-                    this.resultList[startIndex].id = foundItem.id;
-                    this.resultList[startIndex].name = foundItem.name;
-                    this.resultList[startIndex].list = 2;
-                    startIndex++;
-                    this.removeFromGuessingList(foundItem);
-                }
-            });
-            this.isPressHint = false;
+            if (!this.isPressHint) {
+                this.isPressHint = true;
+                this.userMoney = this.userMoney - 2;
+                this.dataManipulation();
+                let hint = this.data[this.indexQuestion].hint;
+                let answer = this.data[this.indexQuestion].answer;
+                let startIndex = answer.indexOf(hint);
+                let arrayHint = Array.from(this.data[this.indexQuestion].hint);
+                arrayHint.forEach(item => {
+                    let foundItem = this.guessingList.find(x => x.name === item);
+                    if (foundItem) {
+                        this.resultList[startIndex].id = foundItem.id;
+                        this.resultList[startIndex].name = foundItem.name;
+                        this.resultList[startIndex].list = 2;
+                        startIndex++;
+                        this.removeFromGuessingList(foundItem);
+                    }
+                });
+            }
         }
 
         moveToGuessingList(item: LetterBox) {
@@ -197,7 +201,26 @@
             }
         }
 
+        updateUserInfo() {
+
+            let userEntity: UserEntity =
+                {
+                    name: this.$store.getters['triviaGameStore/userDetails'].name,
+                    id: this.$store.getters['triviaGameStore/userDetails'].id,
+                    score: this.userMoney, numberOfAnswerQuestions: this.numberOfAnswerQuestions
+                };
+
+            this.$store.dispatch('triviaGameStore/updateUser', userEntity).then((res: any) => {
+                    if (res && res.data) {
+                        console.log('updated');
+                    }
+                }
+            ).catch();
+        }
+
         goToNextStage() {
+            this.updateUserInfo();
+            this.isPressHint = false;
             this.forceRerender();
             if (this.indexQuestion === this.data.length - 1) {
                 this.$router.push({name: 'FinishGame', params: {userMoney: this.userMoney}});
@@ -224,6 +247,7 @@
             let isSuccess = this.resultList.every((value, index) => value.name === this.arrayOfCharAnswer[index]);
             if (isSuccess) {
                 this.timeManipulation();
+                this.numberOfAnswerQuestions++;
                 this.success = true;
                 this.isNext = true;
             }
@@ -400,7 +424,7 @@
             .arrow-element {
                 margin-top: 12%;
                 cursor: pointer;
-                font-size: 30px;
+                font-size: 60px;
                 font-weight: 900;
 
                 .arrow {
@@ -524,7 +548,7 @@
         }
     }
 
-    @media screen and (min-width: 771px) and (max-width: 1000px) {
+    @media screen and (min-width: 771px) and (max-width: 1270px) {
         .game {
             width: 74%;
             height: 71%;
@@ -611,7 +635,7 @@
 
                 .arrow-element {
 
-                    font-size: 20px;
+                    font-size: 35px;
                     margin-top: 20%;
                     cursor: pointer;
                     font-weight: 900;
@@ -824,7 +848,7 @@
                 .arrow-element {
                     margin-top: 25%;
                     cursor: pointer;
-                    font-size: 12px;
+                    font-size: 20px;
                     font-weight: 900;
 
                     .arrow {

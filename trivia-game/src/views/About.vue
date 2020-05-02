@@ -120,4 +120,20 @@
             }
         }
     }
+
+
+    @media screen and (min-width: 771px) and (max-width: 1270px) {
+        .game {
+            width: 74%;
+            height: 71%;
+            margin-right: 47%;
+            margin-top: 5%;
+
+            .about-us {
+                padding: 50px;
+            }
+        }
+    }
+
+
 </style>

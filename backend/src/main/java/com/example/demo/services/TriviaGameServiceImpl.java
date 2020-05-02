@@ -35,7 +35,7 @@ public class TriviaGameServiceImpl implements TriviaGameService {
         triviaGameRepository.save(new TriviaGameEntity(1, "מה עושה סלק כשנמאס לו מחבר שלו?", "מסלק_אותו", "אותו", 0, "מ-סלק אותו"));
         triviaGameRepository.save(new TriviaGameEntity(2, "מה דבר ראשון אמרתי ל-ורה כשביקשתי  אלוורה בטלפון?", "הלו_ורה", "ורה", 0, "יפה! הלו ורה / אלוורה"));
         triviaGameRepository.save(new TriviaGameEntity(3, "מה אמרתי לקומקום כשהרגשתי שהוא רדום ולא עובד טוב?", "קום_קום", "קו", 0, "קום קום / קומקום"));
-      /*  triviaGameRepository.save(new TriviaGameEntity(4, "איזה כרוב אוכלים בשטחים?", "כרוב_כבוש", "כרוב", 0, ""));
+        triviaGameRepository.save(new TriviaGameEntity(4, "איזה כרוב אוכלים בשטחים?", "כרוב_כבוש", "כרוב", 0, ""));
         triviaGameRepository.save(new TriviaGameEntity(5, "מה שאלתי מטאט שחשב שהוא תה?", "מה_אתה_תה", "תה", 0, "מה אתה תה / מטאטא"));
         triviaGameRepository.save(new TriviaGameEntity(6, "איך קוראים לחייט שעושה בגדים למסיבות?", "חיית_מסיבות", "חיית", 0, "חייט מסיבות / חיית מסיבות"));
         triviaGameRepository.save(new TriviaGameEntity(7, "אילו אנשים מהמשפחה תנין סבא רבא הלך לבקר?", "תנינים", "תנ", 0, "תנינים / ת'נינים"));
@@ -63,7 +63,7 @@ public class TriviaGameServiceImpl implements TriviaGameService {
         triviaGameRepository.save(new TriviaGameEntity(29, "איך אומן חושים שמן משפיע עליך?", "בטט_מודע", "בטט", 2, "בטט מודע / בתת מודע"));
         triviaGameRepository.save(new TriviaGameEntity(30, "איך קוראים לקשר בין עבד למעביד שלו כשלמעביד קוראים רות?", "יחסי_מר_רות", "רות", 1, "יחס מר רות / יחסי מרות"));
         triviaGameRepository.save(new TriviaGameEntity(31, "מה אומרים על מישהו שמצופה בסוכר וגם מופיע בתקשורת?", "מסוקר", "מס", 1, "מסוקר / מסוכר"));
-*/
+
 
         List<TriviaGameEntity> result = triviaGameRepository.findAll();
         return result;
